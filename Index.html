@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Devanandha's Birthday ✨</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff4fa3;
+    --light-pink: #ffb6d9;
+    --gold: #ffd98a;
+    --dark: #09060d;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 20%, #42132f 0%, transparent 35%),
+        radial-gradient(circle at 85% 80%, #29133e 0%, transparent 35%),
+        var(--dark);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Background stars */
+
+#stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    color: white;
+    animation: twinkle 3s infinite ease-in-out;
+    opacity: 0.5;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+/* Opening screen */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: #09060d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.intro-box {
+    max-width: 500px;
+    animation: appear 1.5s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.crown {
+    font-size: 65px;
+    animation: crownFloat 3s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes crownFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(5deg);
+    }
+}
+
+.intro-box h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(35px, 8vw, 60px);
+    margin: 20px 0;
+    background: linear-gradient(90deg, #ffb6d9, #fff, #ffd98a);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.intro-box p {
+    color: #d9c6d4;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s ease;
+}
+
+.main-btn {
+    padding: 15px 28px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    background: linear-gradient(135deg, #ff4fa3, #a33cff);
+    box-shadow: 0 0 25px #ff4fa355;
+}
+
+.main-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 0 35px #ff4fa388;
+}
+
+/* Main content */
+
+#main {
+    display: none;
+    position: relative;
+    z-index: 1;
+    max-width: 850px;
+    margin: auto;
+    padding: 35px 20px 70px;
+    text-align: center;
+}
+
+.label {
+    color: var(--light-pink);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(45px, 10vw, 85px);
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffb6d9, #ffffff, #ffd98a);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+}
+
+.hero-subtitle {
+    color: #d6c3d2;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 550px;
+    margin: 0 auto 35px;
+}
+
+/* Countdown */
+
+.countdown-card {
+    background: #ffffff08;
+    border: 1px solid #ffffff20;
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 25px 15px;
+    max-width: 600px;
+    margin: 0 auto 35px;
+    box-shadow: 0 15px 50px #00000030;
+}
+
+.countdown-card h3 {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.time-box {
+    min-width: 65px;
+    padding: 12px 8px;
+    background: #ff4fa311;
+    border: 1px solid #ff4fa333;
+    border-radius: 15px;
+}
+
+.time-box strong {
+    display: block;
+    font-size: 28px;
+    color: #ffb6d9;
+}
+
+.time-box span {
+    font-size: 10px;
+    color: #cbb7c8;
+    letter-spacing: 1px;
+}
+
+/* Birthday card */
+
+.birthday-card {
+    background: linear-gradient(145deg, #ffffff0d, #ffffff04);
+    border: 1px solid #ffffff20;
+    border-radius: 30px;
+    padding: clamp(25px, 6vw, 45px);
+    margin: 35px auto;
+    max-width: 700px;
+    box-shadow: 0 20px 60px #00000040;
+}
+
+.card-heart {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.birthday-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 42px);
+    color: #ffb6d9;
+    margin-bottom: 20px;
+}
+
+.birthday-card p {
+    color: #e6d9e4;
+    line-height: 1.9;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.flirty-line {
+    color: var(--gold) !important;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px !important;
+    font-style: italic;
+    margin: 25px 0 !important;
+}
+
+/* Celebration */
+
+.queen-section {
+    margin: 40px 0;
+}
+
+.queen-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.queen-section p {
+    color: #cbb7c8;
+    margin-bottom: 25px;
+}
+
+/* Surprise */
+
+#surprise {
+    display: none;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ff4fa315, #a33cff15);
+    border: 1px solid #ffb6d955;
+    animation: appear 1s ease;
+}
+
+#surprise h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+#surprise p {
+    color: #f0dce9;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+.letter-button {
+    margin-top: 20px;
+    background: transparent;
+    color: #ffb6d9;
+    border: 1px solid #ffb6d955;
+    padding: 14px 25px;
+    border-radius: 50px;
+}
+
+.letter-button:hover {
+    background: #ff4fa322;
+    transform: scale(1.04);
+}
+
+/* Hidden letter */
+
+#letter {
+    display: none;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 20px;
+    background: #ffffff08;
+    border: 1px solid #ffffff20;
+    animation: appear 1s ease;
+}
+
+#letter p {
+    color: #f0dce9;
+    line-height: 2;
+}
+
+/* Footer */
+
+footer {
+    color: #8e788c;
+    font-size: 12px;
+    margin-top: 50px;
+    letter-spacing: 1px;
+}
+
+/* Floating emojis */
+
+.float {
+    position: fixed;
+    bottom: -40px;
+    pointer-events: none;
+    z-index: 20;
+    animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Confetti */
+
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 13px;
+    top: -20px;
+    z-index: 30;
+    pointer-events: none;
+    animation: confettiFall 4s linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@media (max-width: 480px) {
+    #main {
+        padding: 30px 15px 50px;
+    }
+
+    .time-box {
+        min-width: 58px;
+    }
+
+    .time-box strong {
+        font-size: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- Opening screen -->
+
+<section id="intro">
+    <div class="intro-box">
+
+        <div class="crown">👑</div>
+
+        <p class="label">A little birthday surprise</p>
+
+        <h1>Hey, Devanandha!</h1>
+
+        <p>
+            Pssst… someone fabulous is about to have
+            another reason to be celebrated.
+            <br><br>
+            And obviously, I couldn't let that happen
+            without making something special.
+        </p>
+
+        <button class="main-btn" onclick="openWebsite()">
+            Open Your Surprise 🎁
+        </button>
+
+    </div>
+</section>
+
+<!-- Main website -->
+
+<main id="main">
+
+    <p class="label">
+        December 5th • A day for a queen
+    </p>
+
+    <h1 class="hero-title">
+        Happy Birthday,<br>
+        Devanandha ✨
+    </h1>
+
+    <p class="hero-subtitle">
+        The world got a little more interesting
+        the day you arrived.
+        And honestly… it still hasn't recovered. 😌
+    </p>
+
+    <!-- Countdown -->
+
+    <section class="countdown-card">
+
+        <h3>THE QUEEN'S DAY IS COMING</h3>
+
+        <div class="countdown">
+
+            <div class="time-box">
+                <strong id="days">00</strong>
+                <span>DAYS</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="hours">00</strong>
+                <span>HOURS</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="minutes">00</strong>
+                <span>MINUTES</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="seconds">00</strong>
+                <span>SECONDS</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Birthday message -->
+
+    <section class="birthday-card">
+
+        <div class="card-heart">💌</div>
+
+        <h2>For the one and only</h2>
+
+        <p>
+            To the girl who walks in like she owns the world…
+            honestly, the world should be grateful she showed up.
+        </p>
+
+        <p>
+            You're the kind of person who makes ordinary
+            moments feel like memories worth keeping.
+            Your confidence, your energy, your little ways
+            of being yourself — they're genuinely special.
+        </p>
+
+        <p class="flirty-line">
+            "Pretty, powerful, and dangerously unforgettable."
+        </p>
+
+        <p>
+            I hope this new year of your life brings you
+            endless reasons to smile, people who appreciate
+            you, dreams that come true, and moments that
+            remind you how amazing you are.
+        </p>
+
+        <p>
+            Keep being that baddie.
+            Keep being unapologetically you.
+            The world can adjust. 💅
+        </p>
+
+    </section>
+
+    <!-- Celebration button -->
+
+    <section class="queen-section">
+
+        <h2>Ready to celebrate? 🎉</h2>
+
+        <p>
+            This button has one job:
+            make the birthday queen feel like a queen.
+        </p>
+
+        <button class="main-btn" onclick="celebrate()">
+            Make Some Noise for the Queen 👑
+        </button>
+
+    </section>
+
+    <!-- Surprise message -->
+
+    <section id="surprise">
+
+        <h2>QUEEN MODE: ACTIVATED 💖</h2>
+
+        <p>
+            Birthday girl, your official permission
+            to be extra, dramatic, fabulous, and
+            completely unstoppable has been granted.
+        </p>
+
+        <p class="flirty-line">
+            "Warning: excessive admiration detected."
+        </p>
+
+        <p>
+            You deserve the biggest smile, the sweetest
+            memories, and a birthday that feels as lovely
+            as the person celebrating it.
+        </p>
+
+        <button class="letter-button" onclick="openLetter()">
+            One Last Thing… 💌
+        </button>
+
+        <!-- Hidden letter -->
+
+        <div id="letter">
+
+            <p>
+                Hey Devanandha,
+                <br><br>
+                I'm genuinely glad to have you as my friend.
+                Thank you for the laughs, the conversations,
+                and all those little moments that make
+                friendship feel special.
+                <br><br>
+                I hope life gives you more happiness than
+                you can count, more adventures than you
+                can imagine, and more reasons to be proud
+                of yourself.
+                <br><br>
+                And just so you know…
+                <br>
+                you're pretty awesome.
+                <br>
+                Don't let that crown slip. 👑
+                <br><br>
+                Happy Birthday, superstar. 💗
+            </p>
+
+        </div>
+
+    </section>
+
+    <footer>
+        MADE WITH LOTS OF LOVE & A LITTLE BIT OF CHAOS ✨
+    </footer>
+
+</main>
+
+<script>
+
+/* Background stars */
+
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 70; i++) {
+
+    const star = document.createElement("span");
+
+    star.className = "star";
+    star.textContent = Math.random() > 0.5 ? "✦" : "·";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.fontSize = (Math.random() * 12 + 5) + "px";
+    star.style.animationDelay = Math.random() * 4 + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* Opening animation */
+
+function openWebsite() {
+
+    const intro = document.getElementById("intro");
+
+    intro.classList.add("hidden");
+
+    setTimeout(() => {
+
+        intro.style.display = "none";
+
+        document.getElementById("main").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        floatingEmojis(15);
+
+    }, 1000);
+}
+
+
+/* Countdown to December 5 */
+
+function updateCountdown() {
+
+    const now = new Date();
+
+    let birthday = new Date(
+        now.getFullYear(),
+        11,
+        5,
+        0,
+        0,
+        0
+    );
+
+    if (now > birthday) {
+
+        birthday = new Date(
+            now.getFullYear() + 1,
+            11,
+            5,
+            0,
+            0,
+            0
+        );
+
+    }
+
+    const difference = birthday - now;
+
+    const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (difference / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (difference / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (difference / 1000) % 60
+    );
+
+    document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+
+/* Floating hearts and stars */
+
+function floatingEmojis(amount) {
+
+    const emojis = [
+        "💖", "✨", "💕", "🌸",
+        "💗", "⭐", "🎀", "👑"
+    ];
+
+    for (let i = 0; i < amount; i++) {
+
+        setTimeout(() => {
+
+            const emoji = document.createElement("div");
+
+            emoji.className = "float";
+
+            emoji.textContent =
+                emojis[Math.floor(Math.random() * emojis.length)];
+
+            emoji.style.left = Math.random() * 100 + "vw";
+
+            emoji.style.fontSize =
+                (Math.random() * 20 + 18) + "px";
+
+            document.body.appendChild(emoji);
+
+            setTimeout(() => emoji.remove(), 5000);
+
+        }, i * 100);
+
+    }
+}
+
+
+/* Confetti celebration */
+
+function confettiBurst() {
+
+    const colors = [
+        "#ff4fa3",
+        "#ffd98a",
+        "#ffffff",
+        "#a33cff",
+        "#ffb6d9"
+    ];
+
+    for (let i = 0; i < 100; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.style.left = Math.random() * 100 + "vw";
+
+        confetti.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        confetti.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        confetti.style.width =
+            (Math.random() * 8 + 5) + "px";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 6000);
+
+    }
+}
+
+
+/* Birthday celebration */
+
+function celebrate() {
+
+    const surprise = document.getElementById("surprise");
+
+    surprise.style.display = "block";
+
+    confettiBurst();
+
+    floatingEmojis(35);
+
+    surprise.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* Hidden birthday letter */
+
+function openLetter() {
+
+    const letter = document.getElementById("letter");
+
+    letter.style.display = "block";
+
+    floatingEmojis(20);
+
+    letter.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
